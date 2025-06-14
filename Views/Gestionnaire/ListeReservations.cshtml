@@ -1,0 +1,39 @@
+@model IEnumerable<VolApp.Models.Reservation>
+
+<h2>Liste des réservations</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Email</th>
+            <th>Vol</th>
+            <th>Date</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.NomClient</td>
+                <td>@r.Email</td>
+                <td>@r.Vol?.Depart → @r.Vol?.Destination</td>
+                <td>@r.DateReservation.ToShortDateString()</td>
+                <td>@(r.EstConfirmee ? "Validée" : "En attente")</td>
+                <td>
+                    @if (!r.EstConfirmee)
+                    {
+                        <form method="post" asp-action="Confirmer" asp-route-id="@r.Id" style="display:inline;">
+                            <button class="btn btn-success btn-sm">Confirmer</button>
+                        </form>
+                    }
+                    <form method="post" asp-action="Supprimer" asp-route-id="@r.Id" style="display:inline;">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

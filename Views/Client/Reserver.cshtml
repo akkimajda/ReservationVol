@@ -1,0 +1,34 @@
+@model VolApp.Models.Reservation
+@{
+    ViewBag.Title = "Réserver un vol";
+    var vol = ViewBag.Vol as VolApp.Models.Vol;
+}
+
+@if (vol != null)
+{
+    <h2>Réserver le vol @vol.Depart → @vol.Destination</h2>
+
+    <form method="post" asp-action="Reserver">
+        <input type="hidden" asp-for="VolId" value="@vol.Id" />
+        
+        <div class="mb-3">
+            <label asp-for="NomClient" class="form-label">Nom</label>
+            <input asp-for="NomClient" class="form-control" />
+            <span asp-validation-for="NomClient" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Confirmer la réservation</button>
+    </form>
+}
+else
+{
+    <div class="alert alert-danger">Vol introuvable.</div>
+}
+
+<a href="/Client/Accueil" class="btn btn-secondary mt-3">Retour à l'accueil</a>

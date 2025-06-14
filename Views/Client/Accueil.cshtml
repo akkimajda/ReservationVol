@@ -1,0 +1,33 @@
+@model List<VolApp.Models.Vol>
+
+<h2>Vols disponibles</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Départ</th>
+            <th>Destination</th>
+            <th>Date Départ</th>
+            <th>Date Arrivée</th>
+            <th>Prix</th>
+            <th>Places</th>
+            <th>Réserver</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vol in Model)
+        {
+            <tr>
+                <td>@vol.Depart</td>
+                <td>@vol.Destination</td>
+                <td>@vol.DateDepart.ToString("g")</td>
+                <td>@vol.DateArrivee.ToString("g")</td>
+                <td>@vol.Prix MAD</td>
+                <td>@vol.PlacesDisponibles</td>
+                <td>
+                    <a href="/Client/Reserver/@vol.Id" class="btn btn-sm btn-success">Réserver</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

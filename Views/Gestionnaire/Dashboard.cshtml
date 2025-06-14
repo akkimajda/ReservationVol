@@ -1,0 +1,74 @@
+@model List<VolApp.Models.Vol>
+
+<h2>Liste des vols</h2>
+<a href="/Gestionnaire/ListeReservations" class="btn btn-primary mb-3">
+    Voir les réservations clients
+</a>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Départ</th>
+            <th>Destination</th>
+            <th>Date Départ</th>
+            <th>Date Arrivée</th>
+            <th>Prix (MAD)</th>
+            <th>Places</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vol in Model)
+        {
+            <tr>
+                <td>@vol.Id</td>
+                <td>@vol.Depart</td>
+                <td>@vol.Destination</td>
+                <td>@vol.DateDepart.ToShortTimeString()</td>
+                <td>@vol.DateArrivee.ToShortTimeString()</td>
+                <td>@vol.Prix</td>
+                <td>@vol.PlacesDisponibles</td>
+                <td>
+                    <a asp-controller="Gestionnaire" asp-action="EditVol" asp-route-id="@vol.Id" class="btn btn-sm btn-primary">Modifier</a>
+                    <a asp-controller="Gestionnaire" asp-action="SupprimerVol" asp-route-id="@vol.Id" class="btn btn-sm btn-danger">Supprimer</a>
+                    <a asp-controller="Gestionnaire" asp-action="DetailsVol" asp-route-id="@vol.Id" class="btn btn-sm btn-info">Détails</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Ajouter un vol</h3>
+
+<form method="post" asp-controller="Gestionnaire" asp-action="AjouterVol">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Départ</label>
+            <input type="text" name="Depart" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Destination</label>
+            <input type="text" name="Destination" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Date de départ</label>
+            <input type="datetime-local" name="DateDepart" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Date d'arrivée</label>
+            <input type="datetime-local" name="DateArrivee" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Prix</label>
+            <input type="number" name="Prix" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Places disponibles</label>
+            <input type="number" name="PlacesDisponibles" class="form-control" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Ajouter</button>
+</form>
+

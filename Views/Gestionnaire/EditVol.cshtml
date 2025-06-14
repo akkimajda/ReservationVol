@@ -1,0 +1,35 @@
+@model VolApp.Models.Vol
+
+<h2>Modifier le vol</h2>
+
+<form asp-action="EditVol" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-md-4">
+            <label>Départ</label>
+            <input asp-for="Depart" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Destination</label>
+            <input asp-for="Destination" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Date de départ</label>
+            <input asp-for="DateDepart" class="form-control" type="datetime-local" />
+        </div>
+        <div class="col-md-4">
+            <label>Date d'arrivée</label>
+            <input asp-for="DateArrivee" class="form-control" type="datetime-local" />
+        </div>
+        <div class="col-md-4">
+            <label>Prix</label>
+            <input asp-for="Prix" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Places disponibles</label>
+            <input asp-for="PlacesDisponibles" class="form-control" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">Annuler</a>
+</form>
