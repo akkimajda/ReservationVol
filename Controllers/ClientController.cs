@@ -35,17 +35,17 @@ namespace VolApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                // ✅ Ne jamais forcer reservation.Id — PostgreSQL va le générer
                 reservation.DateReservation = DateTime.UtcNow;
-
                 _context.Reservations.Add(reservation);
                 _context.SaveChanges();
 
-                return RedirectToAction("Accueil");
+                return RedirectToAction("Reserver", new { id = reservation.VolId });
             }
 
             ViewBag.Vol = _context.Vols.Find(reservation.VolId);
             return View(reservation);
         }
+
+
     }
 }

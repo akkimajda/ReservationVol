@@ -3,6 +3,21 @@
     ViewBag.Title = "Réserver un vol";
     var vol = ViewBag.Vol as VolApp.Models.Vol;
 }
+@if (TempData["StatutAnnule"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["StatutAnnule"]
+    </div>
+}
+
+@if (Model?.StatutMessage != null && Model.StatutMessage != "En attente de confirmation")
+{
+    <div class="alert alert-success">
+        @Model.StatutMessage
+    </div>
+}
+
+
 
 @if (vol != null)
 {

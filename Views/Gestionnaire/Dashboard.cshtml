@@ -1,10 +1,9 @@
-@model List<VolApp.Models.Vol>
+@model VolApp.Models.DashboardViewModel
 
 <h2>Liste des vols</h2>
 <a href="/Gestionnaire/ListeReservations" class="btn btn-primary mb-3">
     Voir les réservations clients
 </a>
-
 
 <table class="table table-bordered">
     <thead>
@@ -20,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var vol in Model)
+        @foreach (var vol in Model.Vols)
         {
             <tr>
                 <td>@vol.Id</td>
@@ -40,8 +39,7 @@
     </tbody>
 </table>
 
-<h3>Ajouter un vol</h3>
-
+<h4>Ajouter un vol</h4>
 <form method="post" asp-controller="Gestionnaire" asp-action="AjouterVol">
     <div class="row">
         <div class="col-md-4">
@@ -72,3 +70,38 @@
     <button type="submit" class="btn btn-success mt-3">Ajouter</button>
 </form>
 
+<h3>Réservations confirmées</h3>
+@if (Model.ReservationsConfirmees != null && Model.ReservationsConfirmees.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom Client</th>
+                <th>Email</th>
+                <th>Vol</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var res in Model.ReservationsConfirmees)
+        {
+            <tr>
+                <td>@res.NomClient</td>
+                <td>@res.Email</td>
+                <td>@res.Vol?.Depart → @res.Vol?.Destination</td>
+                <td>@res.DateReservation.ToShortDateString()</td>
+                <td>
+                    <form method="post" asp-action="Supprimer" asp-controller="Gestionnaire" asp-route-id="@res.Id">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucune réservation confirmée pour l'instant.</p>
+}

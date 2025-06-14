@@ -14,18 +14,27 @@ namespace VolApp.Controllers
             _context = context;
         }
 
+        // PAGE DASHBOARD
         public IActionResult Dashboard()
         {
-            var vols = _context.Vols.ToList(); // 🔁 lire depuis la base réelle
-            return View(vols);
+            var model = new DashboardViewModel
+            {
+                Vols = _context.Vols.ToList(),
+                ReservationsConfirmees = _context.Reservations
+                    .Include(r => r.Vol)
+                    .Where(r => r.EstConfirmee)
+                    .ToList()
+            };
+
+            return View(model);
         }
 
+        // AJOUT VOL
         [HttpPost]
         public IActionResult AjouterVol(Vol vol)
         {
             if (ModelState.IsValid)
             {
-                // ✅ Forcer les dates à UTC
                 vol.DateDepart = DateTime.SpecifyKind(vol.DateDepart, DateTimeKind.Utc);
                 vol.DateArrivee = DateTime.SpecifyKind(vol.DateArrivee, DateTimeKind.Utc);
 
@@ -34,12 +43,10 @@ namespace VolApp.Controllers
                 return RedirectToAction("Dashboard");
             }
 
-            return View("Dashboard", _context.Vols.ToList());
+            return RedirectToAction("Dashboard");
         }
 
-
-
-
+        // SUPPRIMER VOL
         public IActionResult SupprimerVol(int id)
         {
             var vol = _context.Vols.Find(id);
@@ -48,27 +55,22 @@ namespace VolApp.Controllers
                 _context.Vols.Remove(vol);
                 _context.SaveChanges();
             }
-
             return RedirectToAction("Dashboard");
         }
 
-
+        // MODIFIER VOL (GET)
         public IActionResult EditVol(int id)
         {
             var vol = _context.Vols.FirstOrDefault(v => v.Id == id);
-            if (vol == null)
-                return NotFound();
-
-            return View(vol); // renvoie à la vue EditVol.cshtml
+            return vol == null ? NotFound() : View(vol);
         }
 
-
+        // MODIFIER VOL (POST)
         [HttpPost]
         public IActionResult EditVol(Vol vol)
         {
             if (ModelState.IsValid)
             {
-                // ✅ Forcer les dates en UTC
                 vol.DateDepart = DateTime.SpecifyKind(vol.DateDepart, DateTimeKind.Utc);
                 vol.DateArrivee = DateTime.SpecifyKind(vol.DateArrivee, DateTimeKind.Utc);
 
@@ -80,23 +82,21 @@ namespace VolApp.Controllers
             return View(vol);
         }
 
-
-
+        // DÉTAILS
         public IActionResult DetailsVol(int id)
         {
             var vol = _context.Vols.FirstOrDefault(v => v.Id == id);
-            if (vol == null)
-                return NotFound();
-
-            return View(vol); // envoie vers la vue DetailsVol.cshtml
+            return vol == null ? NotFound() : View(vol);
         }
 
+        // LISTE DES RÉSERVATIONS EN ATTENTE
         public IActionResult ListeReservations()
         {
             var reservations = _context.Reservations.Include(r => r.Vol).ToList();
             return View(reservations);
         }
 
+        // CONFIRMER UNE RÉSERVATION
         [HttpPost]
         public IActionResult Confirmer(int id)
         {
@@ -104,35 +104,28 @@ namespace VolApp.Controllers
             if (res != null)
             {
                 res.EstConfirmee = true;
+                res.StatutMessage = "Votre réservation a été confirmée.";
                 _context.SaveChanges();
             }
             return RedirectToAction("ListeReservations");
         }
 
+
+
+        // SUPPRIMER UNE RÉSERVATION
         [HttpPost]
         public IActionResult Supprimer(int id)
         {
             var res = _context.Reservations.Find(id);
             if (res != null)
             {
-                // facultatif : stocker une info d’annulation pour le client
                 TempData["AnnuleeEmail"] = res.Email;
+                TempData["StatutAnnule"] = "Votre réservation a été annulée. Veuillez en effectuer une nouvelle.";
                 _context.Reservations.Remove(res);
                 _context.SaveChanges();
             }
             return RedirectToAction("ListeReservations");
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

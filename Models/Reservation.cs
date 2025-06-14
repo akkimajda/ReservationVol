@@ -25,5 +25,8 @@ namespace VolApp.Models
         public DateTime DateReservation { get; set; } = DateTime.UtcNow;
         public bool EstConfirmee { get; set; } = false;
 
+        public string StatutMessage { get; set; } = "En attente de confirmation";
+
+
     }
 }
