@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VolApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+991d21c0b0e246654cc805f349236e21c8fa8244")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a08e03e0751fa0527eb1782f370bc7ac04d814b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("VolApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VolApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

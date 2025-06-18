@@ -61,18 +61,15 @@ namespace VolApp.Controllers
             return View(reservation);
         }
 
-        // 🔽 Code pour MES RÉSERVATIONS
-
         public IActionResult MesReservations()
 {
-    string emailClient = User.Identity?.Name ?? "";
     var reservations = _context.Reservations
-        .Include(r => r.Vol) // on charge les détails du vol lié
-        .Where(r => r.Email == emailClient)
+        .Include(r => r.Vol)
         .ToList();
 
     return View(reservations);
 }
+
 
 
         [HttpPost]
