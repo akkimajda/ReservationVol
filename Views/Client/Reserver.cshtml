@@ -24,7 +24,7 @@
     <h2>Réserver le vol @vol.Depart → @vol.Destination</h2>
 
     <form method="post" asp-action="Reserver">
-        <input type="hidden" asp-for="VolId" value="@vol.Id" />
+        <input type="hidden" asp-for="VolId" value="@vol.Id" readonly />
         
         <div class="mb-3">
             <label asp-for="NomClient" class="form-label">Nom</label>
@@ -47,3 +47,4 @@ else
 }
 
 <a href="/Client/Accueil" class="btn btn-secondary mt-3">Retour à l'accueil</a>
+<a class="btn btn-primary" asp-controller="Client" asp-action="MesReservations">Voir mes réservations</a>

@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using System.Linq;
 using VolApp.Data;
 using VolApp.Models;
+using System;
+using Microsoft.EntityFrameworkCore; // tout en haut
+
 
 namespace VolApp.Controllers
 {
@@ -21,13 +27,22 @@ namespace VolApp.Controllers
 
         // GET: formulaire de réservation
         public IActionResult Reserver(int id)
-        {
-            var vol = _context.Vols.Find(id);
-            if (vol == null) return NotFound();
+{
+    var vol = _context.Vols.Find(id);
+    if (vol == null) return NotFound();
 
-            ViewBag.Vol = vol;
-            return View();
-        }
+    ViewBag.Vol = vol;
+
+    // Créer un modèle vide sans ID
+    var reservation = new Reservation
+    {
+        VolId = vol.Id
+    };
+
+    return View(reservation);
+}
+
+
 
         // POST: enregistrement
         [HttpPost]
@@ -46,6 +61,30 @@ namespace VolApp.Controllers
             return View(reservation);
         }
 
+        // 🔽 Code pour MES RÉSERVATIONS
 
+        public IActionResult MesReservations()
+{
+    string emailClient = User.Identity?.Name ?? "";
+    var reservations = _context.Reservations
+        .Include(r => r.Vol) // on charge les détails du vol lié
+        .Where(r => r.Email == emailClient)
+        .ToList();
+
+    return View(reservations);
+}
+
+
+        [HttpPost]
+        public IActionResult AnnulerReservation(int id)
+        {
+            var reservation = _context.Reservations.Find(id);
+            if (reservation != null)
+            {
+                _context.Reservations.Remove(reservation);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("MesReservations");
+        }
     }
 }

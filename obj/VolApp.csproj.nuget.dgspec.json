@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/admin/ReservationVol/VolApp/VolApp.csproj": {}
+    "/home/admin/ReservationVol/VolApp.csproj": {}
   },
   "projects": {
-    "/home/admin/ReservationVol/VolApp/VolApp.csproj": {
+    "/home/admin/ReservationVol/VolApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/admin/ReservationVol/VolApp/VolApp.csproj",
+        "projectUniqueName": "/home/admin/ReservationVol/VolApp.csproj",
         "projectName": "VolApp",
-        "projectPath": "/home/admin/ReservationVol/VolApp/VolApp.csproj",
+        "projectPath": "/home/admin/ReservationVol/VolApp.csproj",
         "packagesPath": "/home/admin/.nuget/packages/",
-        "outputPath": "/home/admin/ReservationVol/VolApp/obj/",
+        "outputPath": "/home/admin/ReservationVol/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/admin/.nuget/NuGet/NuGet.Config"

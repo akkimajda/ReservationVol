@@ -12,6 +12,5 @@ namespace VolApp.Data
 
         public DbSet<Vol> Vols { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-
     }
 }

@@ -17,71 +17,75 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VolApp
 build_property.RootNamespace = VolApp
-build_property.ProjectDir = /home/admin/ReservationVol/VolApp/
+build_property.ProjectDir = /home/admin/ReservationVol/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/admin/ReservationVol/VolApp
+build_property.MSBuildProjectDirectory = /home/admin/ReservationVol
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/admin/ReservationVol/VolApp/Views/Account/Login.cshtml]
+[/home/admin/ReservationVol/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Account/Register.cshtml]
+[/home/admin/ReservationVol/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Client/Accueil.cshtml]
+[/home/admin/ReservationVol/Views/Client/Accueil.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpZW50L0FjY3VlaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Client/Reserver.cshtml]
+[/home/admin/ReservationVol/Views/Client/MesReservations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpZW50L01lc1Jlc2VydmF0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/admin/ReservationVol/Views/Client/Reserver.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpZW50L1Jlc2VydmVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Gestionnaire/Dashboard.cshtml]
+[/home/admin/ReservationVol/Views/Gestionnaire/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR2VzdGlvbm5haXJlL0Rhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Gestionnaire/DetailsVol.cshtml]
+[/home/admin/ReservationVol/Views/Gestionnaire/DetailsVol.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR2VzdGlvbm5haXJlL0RldGFpbHNWb2wuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Gestionnaire/EditVol.cshtml]
+[/home/admin/ReservationVol/Views/Gestionnaire/EditVol.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR2VzdGlvbm5haXJlL0VkaXRWb2wuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Gestionnaire/ListeReservations.cshtml]
+[/home/admin/ReservationVol/Views/Gestionnaire/ListeReservations.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR2VzdGlvbm5haXJlL0xpc3RlUmVzZXJ2YXRpb25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Home/Index.cshtml]
+[/home/admin/ReservationVol/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Home/Privacy.cshtml]
+[/home/admin/ReservationVol/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Shared/Error.cshtml]
+[/home/admin/ReservationVol/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/admin/ReservationVol/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/_ViewImports.cshtml]
+[/home/admin/ReservationVol/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/_ViewStart.cshtml]
+[/home/admin/ReservationVol/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/admin/ReservationVol/VolApp/Views/Shared/_Layout.cshtml]
+[/home/admin/ReservationVol/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-t43sfobzto

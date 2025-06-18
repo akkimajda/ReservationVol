@@ -1,0 +1,37 @@
+@model List<Reservation>
+
+@{
+    ViewData["Title"] = "Mes Réservations";
+}
+
+<h2>Mes Réservations</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Vol</th>
+            <th>Date</th>
+            <th>Départ</th>
+            <th>Destination</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.VolId</td>
+                <td>@r.DateReservation.ToShortDateString()</td>
+                <td>@r.Vol.Depart</td>
+                <td>@r.Vol.Destination</td>
+
+                <td>
+                    <form asp-action="AnnulerReservation" method="post">
+                        <input type="hidden" name="id" value="@r.Id" />
+                        <button type="submit" class="btn btn-danger">Annuler</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
