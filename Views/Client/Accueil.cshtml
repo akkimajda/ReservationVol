@@ -2,8 +2,28 @@
 
 <h2>Vols disponibles</h2>
 
-<!-- 🔍 Barre de recherche par ville de départ -->
-<input type="text" id="searchInput" class="form-control" placeholder="Rechercher par ville de départ..." style="max-width: 300px; margin-bottom: 15px;" />
+<!-- 🔎 Filtres -->
+<div class="row mb-3">
+    <div class="col-md-3">
+        <input type="text" id="searchDepart" class="form-control" placeholder="Ville de départ..." />
+    </div>
+    <div class="col-md-3">
+        <select id="filterDestination" class="form-control">
+            <option value="">-- Destination --</option>
+            @foreach (var dest in Model.Select(v => v.Destination).Distinct())
+            {
+                <option value="@dest">@dest</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="date" id="filterDate" class="form-control" />
+    </div>
+    <div class="col-md-3 d-flex">
+        <button class="btn btn-secondary me-2" onclick="resetFilters()">Réinitialiser</button>
+        <button class="btn btn-info" onclick="toggleSort()">Trier par prix</button>
+    </div>
+</div>
 
 <table class="table table-striped" id="volsTable">
     <thead>
@@ -12,20 +32,20 @@
             <th>Destination</th>
             <th>Date Départ</th>
             <th>Date Arrivée</th>
-            <th>Prix</th>
+            <th id="prixHeader">Prix</th>
             <th>Places</th>
             <th>Réserver</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tableBody">
         @foreach (var vol in Model)
         {
             <tr>
                 <td>@vol.Depart</td>
                 <td>@vol.Destination</td>
-                <td>@vol.DateDepart.ToString("g")</td>
-                <td>@vol.DateArrivee.ToString("g")</td>
-                <td>@vol.Prix MAD</td>
+                <td>@vol.DateDepart.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@vol.DateArrivee.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@vol.Prix</td>
                 <td>@vol.PlacesDisponibles</td>
                 <td>
                     <a href="/Client/Reserver/@vol.Id" class="btn btn-sm btn-success">Réserver</a>
@@ -35,15 +55,55 @@
     </tbody>
 </table>
 
-<!-- 🔁 Script de filtrage -->
+<!-- 💡 JS pour les filtres & tri -->
 <script>
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-        const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll("#volsTable tbody tr");
+    const departInput = document.getElementById("searchDepart");
+    const destinationSelect = document.getElementById("filterDestination");
+    const dateInput = document.getElementById("filterDate");
+    const rows = document.querySelectorAll("#volsTable tbody tr");
+    let sortAscending = true;
+
+    function filterRows() {
+        const departVal = departInput.value.toLowerCase();
+        const destVal = destinationSelect.value.toLowerCase();
+        const dateVal = dateInput.value;
 
         rows.forEach(row => {
             const depart = row.cells[0].textContent.toLowerCase();
-            row.style.display = depart.includes(filter) ? "" : "none";
+            const dest = row.cells[1].textContent.toLowerCase();
+            const dateDepart = row.cells[2].textContent.substring(0, 10);
+
+            const matchDepart = depart.includes(departVal);
+            const matchDest = !destVal || dest === destVal;
+            const matchDate = !dateVal || dateDepart === dateVal;
+
+            row.style.display = matchDepart && matchDest && matchDate ? "" : "none";
         });
-    });
+    }
+
+    function resetFilters() {
+        departInput.value = "";
+        destinationSelect.selectedIndex = 0;
+        dateInput.value = "";
+        filterRows();
+    }
+
+    function toggleSort() {
+        const tableBody = document.getElementById("tableBody");
+        const rowsArray = Array.from(tableBody.rows);
+
+        rowsArray.sort((a, b) => {
+            const priceA = parseFloat(a.cells[4].textContent);
+            const priceB = parseFloat(b.cells[4].textContent);
+            return sortAscending ? priceA - priceB : priceB - priceA;
+        });
+
+        sortAscending = !sortAscending;
+        tableBody.innerHTML = "";
+        rowsArray.forEach(row => tableBody.appendChild(row));
+    }
+
+    departInput.addEventListener("keyup", filterRows);
+    destinationSelect.addEventListener("change", filterRows);
+    dateInput.addEventListener("change", filterRows);
 </script>

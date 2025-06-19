@@ -43,7 +43,6 @@ namespace VolApp.Controllers
 
             return View(model);
         }
-
 [HttpPost]
 public IActionResult AjouterVol(Vol vol)
 {
@@ -53,22 +52,32 @@ public IActionResult AjouterVol(Vol vol)
         vol.DateArrivee = DateTime.SpecifyKind(vol.DateArrivee, DateTimeKind.Utc);
 
         _context.Vols.Add(vol);
-        _context.SaveChanges(); // ⬅️ Il faut que l’ID du vol soit généré avant de l’utiliser dans le SQL
+        _context.SaveChanges(); // ID du vol généré ici
 
-        // Vérifier si les deux villes existent dans le dictionnaire
+        // 🔴 Bloc ajouté ici pour insérer la géométrie si les villes sont connues
         if (villesCoords.TryGetValue(vol.Depart, out var coordDepart) &&
             villesCoords.TryGetValue(vol.Destination, out var coordDestination))
         {
             string wkt = $"LINESTRING({coordDepart.lon} {coordDepart.lat}, {coordDestination.lon} {coordDestination.lat})";
 
-            string sql = $@"
-    INSERT INTO vols_lignes (vol_id, geom)
-    VALUES ({vol.Id}, ST_GeomFromText('{wkt}', 4326));
-";
+            try
+            {
+                string sql = @"
+                    INSERT INTO vols_lignes (vol_id, geom)
+                    VALUES ({0}, ST_GeomFromText({1}, 4326));
+                ";
 
-
-
-            _context.Database.ExecuteSqlRaw(sql); // 🔥 Insertion directe dans la couche PostGIS
+                _context.Database.ExecuteSqlRaw(sql, vol.Id, wkt);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur WKT: " + wkt);
+                Console.WriteLine("Exception : " + ex.Message);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Ville non trouvée : " + vol.Depart + " ou " + vol.Destination);
         }
 
         return RedirectToAction("Dashboard");
@@ -76,6 +85,8 @@ public IActionResult AjouterVol(Vol vol)
 
     return RedirectToAction("Dashboard");
 }
+
+
 
 
 

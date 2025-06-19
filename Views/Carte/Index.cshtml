@@ -8,21 +8,20 @@
 
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // 1. Initialisation de la carte centrée par défaut sur Casablanca
-    const map = L.map('map').setView([33.5731, -7.5898], 7);
+    // Initialiser la carte
+    const map = L.map('map').setView([33.5731, -7.5898], 6); // Casablanca
 
-    // 2. Fond de carte OpenStreetMap
+    // Fond OSM
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // 3. Chargement des lignes de vols depuis le contrôleur
+    // Charger les lignes GeoJSON
     fetch('/Carte/GetVolsGeoJson')
         .then(response => response.json())
         .then(data => {
@@ -30,7 +29,7 @@
                 style: {
                     color: 'red',
                     weight: 5,
-                    opacity: 0.9
+                    opacity: 0.8
                 },
                 onEachFeature: function (feature, layer) {
                     const props = feature.properties;
@@ -42,10 +41,8 @@
                 }
             }).addTo(map);
 
-            // 4. Centrage automatique sur les lignes
+            // Centrage automatique
             map.fitBounds(geoLayer.getBounds());
         })
-        .catch(error => {
-            console.error('Erreur lors du chargement des données GeoJSON :', error);
-        });
+        .catch(err => console.error("Erreur GeoJSON:", err));
 </script>

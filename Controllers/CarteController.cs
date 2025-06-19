@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 using VolApp.Data;
+using VolApp.Models;
 
 namespace VolApp.Controllers
 {
@@ -13,65 +15,40 @@ namespace VolApp.Controllers
             _context = context;
         }
 
-        // Vue principale de la carte
         public IActionResult Index()
         {
-            return View();
+            return View(); // Affiche la carte
         }
 
-        // 🔁 API : Renvoie les lignes de vols au format GeoJSON
         [HttpGet]
         public IActionResult GetVolsGeoJson()
         {
-            var geoJson = _context.VolLignes
-    .Select(v => new
-    {
-        geometry = v.Geom.ToString(),
-        properties = new
-        {
-            id = v.Id,
-            vol_id = v.Vol_Id,
-        }
-    })
-    .ToList();
+            var lignes = _context.VolLignes
+                .Include(vl => vl.Vol)
+                .ToList();
 
-
-
-            var features = geoJson.Select(f => new
-            {
-                type = "Feature",
-                geometry = new
-                {
-                    type = "LineString",
-                    coordinates = WktToCoordinates(f.geometry)
-                },
-                properties = f.properties
-            });
-
-            return Json(new
+            var geojson = new
             {
                 type = "FeatureCollection",
-                features = features
-            });
-        }
-
-        // 🔁 Fonction pour transformer du WKT en tableau de coordonnées
-        private static List<List<double>> WktToCoordinates(string wkt)
-        {
-            var coordPart = wkt.Replace("LINESTRING(", "")
-                               .Replace(")", "")
-                               .Trim();
-
-            return coordPart.Split(',')
-                .Select(pair =>
+                features = lignes.Select(vl => new
                 {
-                    var nums = pair.Trim().Split(' ');
-                    return new List<double>
+                    type = "Feature",
+                    geometry = new
                     {
-                        double.Parse(nums[0], System.Globalization.CultureInfo.InvariantCulture),
-                        double.Parse(nums[1], System.Globalization.CultureInfo.InvariantCulture)
-                    };
-                }).ToList();
+                        type = "LineString",
+                        coordinates = vl.Geom.Coordinates.Select(c => new[] { c.X, c.Y })
+                    },
+                    properties = new
+                    {
+                        depart = vl.Vol.Depart,
+                        destination = vl.Vol.Destination,
+                        date_vol = vl.Vol.DateDepart.ToString("yyyy-MM-dd HH:mm"),
+                        places = vl.Vol.PlacesDisponibles
+                    }
+                })
+            };
+
+            return Json(geojson);
         }
     }
 }
