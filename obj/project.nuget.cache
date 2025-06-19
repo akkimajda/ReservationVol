@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "a/OF+DS/BIgvtCltQKFUgj23HjKOXxM4k4peIaL1XMmDOI014Z1MitMSbc+uMpd/2aLPOqFpz3Z1SgGiiavGTQ==",
+  "dgSpecHash": "qiDjnBnibsDHzy2nKpANb7tBWnpyS/FuGa2MOu+OnZnvOOeJuJKmBk1vU2f22bKDQAGOeT3/P8/WhFcLy4cp0A==",
   "success": true,
   "projectFilePath": "/home/admin/ReservationVol/VolApp.csproj",
   "expectedPackageFiles": [
@@ -30,8 +30,13 @@
     "/home/admin/.nuget/packages/microsoft.extensions.options/9.0.5/microsoft.extensions.options.9.0.5.nupkg.sha512",
     "/home/admin/.nuget/packages/microsoft.extensions.primitives/9.0.5/microsoft.extensions.primitives.9.0.5.nupkg.sha512",
     "/home/admin/.nuget/packages/mono.texttemplating/3.0.0/mono.texttemplating.3.0.0.nupkg.sha512",
+    "/home/admin/.nuget/packages/nettopologysuite/2.6.0/nettopologysuite.2.6.0.nupkg.sha512",
+    "/home/admin/.nuget/packages/nettopologysuite.io.postgis/2.1.0/nettopologysuite.io.postgis.2.1.0.nupkg.sha512",
+    "/home/admin/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/admin/.nuget/packages/npgsql/9.0.3/npgsql.9.0.3.nupkg.sha512",
     "/home/admin/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.4/npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
+    "/home/admin/.nuget/packages/npgsql.entityframeworkcore.postgresql.nettopologysuite/9.0.4/npgsql.entityframeworkcore.postgresql.nettopologysuite.9.0.4.nupkg.sha512",
+    "/home/admin/.nuget/packages/npgsql.nettopologysuite/9.0.3/npgsql.nettopologysuite.9.0.3.nupkg.sha512",
     "/home/admin/.nuget/packages/system.codedom/6.0.0/system.codedom.6.0.0.nupkg.sha512",
     "/home/admin/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512",
     "/home/admin/.nuget/packages/system.composition/7.0.0/system.composition.7.0.0.nupkg.sha512",

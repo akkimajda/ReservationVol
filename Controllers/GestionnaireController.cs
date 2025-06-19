@@ -9,6 +9,21 @@ namespace VolApp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private readonly Dictionary<string, (double lat, double lon)> villesCoords = new()
+        {
+    { "Casablanca", (33.5731, -7.5898) },
+    { "Fès", (34.0331, -5.0003) },
+    { "Rabat", (34.0209, -6.8417) },
+    { "Marrakech", (31.6295, -7.9811) },
+    { "Madrid", (40.4168, -3.7038) },
+    { "Paris", (48.8566, 2.3522) },
+    { "New York", (40.7128, -74.0060) },
+    { "Dubai", (25.2048, 55.2708) }
+        };
+
+
+
+
         public GestionnaireController(ApplicationDbContext context)
         {
             _context = context;
@@ -29,22 +44,48 @@ namespace VolApp.Controllers
             return View(model);
         }
 
-        // AJOUT VOL
-        [HttpPost]
-        public IActionResult AjouterVol(Vol vol)
+[HttpPost]
+public IActionResult AjouterVol(Vol vol)
+{
+    if (ModelState.IsValid)
+    {
+        vol.DateDepart = DateTime.SpecifyKind(vol.DateDepart, DateTimeKind.Utc);
+        vol.DateArrivee = DateTime.SpecifyKind(vol.DateArrivee, DateTimeKind.Utc);
+
+        _context.Vols.Add(vol);
+        _context.SaveChanges(); // ⬅️ Il faut que l’ID du vol soit généré avant de l’utiliser dans le SQL
+
+        // Vérifier si les deux villes existent dans le dictionnaire
+        if (villesCoords.TryGetValue(vol.Depart, out var coordDepart) &&
+            villesCoords.TryGetValue(vol.Destination, out var coordDestination))
         {
-            if (ModelState.IsValid)
-            {
-                vol.DateDepart = DateTime.SpecifyKind(vol.DateDepart, DateTimeKind.Utc);
-                vol.DateArrivee = DateTime.SpecifyKind(vol.DateArrivee, DateTimeKind.Utc);
+            string wkt = $"LINESTRING({coordDepart.lon} {coordDepart.lat}, {coordDestination.lon} {coordDestination.lat})";
 
-                _context.Vols.Add(vol);
-                _context.SaveChanges();
-                return RedirectToAction("Dashboard");
-            }
+            string sql = $@"
+    INSERT INTO vols_lignes (vol_id, geom)
+    VALUES ({vol.Id}, ST_GeomFromText('{wkt}', 4326));
+";
 
-            return RedirectToAction("Dashboard");
+
+
+            _context.Database.ExecuteSqlRaw(sql); // 🔥 Insertion directe dans la couche PostGIS
         }
+
+        return RedirectToAction("Dashboard");
+    }
+
+    return RedirectToAction("Dashboard");
+}
+
+
+
+
+
+
+
+
+
+
 
         // SUPPRIMER VOL
         public IActionResult SupprimerVol(int id)

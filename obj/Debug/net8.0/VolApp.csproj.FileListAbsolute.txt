@@ -165,8 +165,13 @@
 /home/admin/ReservationVol/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/Mono.TextTemplating.dll
+/home/admin/ReservationVol/bin/Debug/net8.0/NetTopologySuite.dll
+/home/admin/ReservationVol/bin/Debug/net8.0/NetTopologySuite.IO.PostGis.dll
+/home/admin/ReservationVol/bin/Debug/net8.0/Newtonsoft.Json.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/Npgsql.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/home/admin/ReservationVol/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite.dll
+/home/admin/ReservationVol/bin/Debug/net8.0/Npgsql.NetTopologySuite.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/System.CodeDom.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/System.Composition.AttributedModel.dll
 /home/admin/ReservationVol/bin/Debug/net8.0/System.Composition.Convention.dll
@@ -251,6 +256,7 @@
 /home/admin/ReservationVol/obj/Debug/net8.0/VolApp.MvcApplicationPartsAssemblyInfo.cache
 /home/admin/ReservationVol/obj/Debug/net8.0/VolApp.RazorAssemblyInfo.cache
 /home/admin/ReservationVol/obj/Debug/net8.0/VolApp.RazorAssemblyInfo.cs
+/home/admin/ReservationVol/obj/Debug/net8.0/EFCoreNpgsqlNetTopologySuite.cs
 /home/admin/ReservationVol/obj/Debug/net8.0/VolApp.sourcelink.json
 /home/admin/ReservationVol/obj/Debug/net8.0/staticwebassets.build.json
 /home/admin/ReservationVol/obj/Debug/net8.0/staticwebassets.development.json

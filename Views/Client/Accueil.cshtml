@@ -2,7 +2,10 @@
 
 <h2>Vols disponibles</h2>
 
-<table class="table table-striped">
+<!-- 🔍 Barre de recherche par ville de départ -->
+<input type="text" id="searchInput" class="form-control" placeholder="Rechercher par ville de départ..." style="max-width: 300px; margin-bottom: 15px;" />
+
+<table class="table table-striped" id="volsTable">
     <thead>
         <tr>
             <th>Départ</th>
@@ -31,3 +34,16 @@
         }
     </tbody>
 </table>
+
+<!-- 🔁 Script de filtrage -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#volsTable tbody tr");
+
+        rows.forEach(row => {
+            const depart = row.cells[0].textContent.toLowerCase();
+            row.style.display = depart.includes(filter) ? "" : "none";
+        });
+    });
+</script>
